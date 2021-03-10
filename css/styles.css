@@ -1,0 +1,29 @@
+/*https://www.flaticon.com/packs/scrum-process-4?word=scrum*/
+
+/*HEADER*/
+
+.navbar {
+	background: black;
+	color: white;
+	margin-bottom: 0;
+}
+
+.jumbotron {
+	background: #AAB7B8;
+	color: white;
+	padding: 20px 0px;
+}
+
+#btnagregar {
+	margin: 20px 10px;
+	background: #F5B041;
+}
+
+.modal-header {
+	background: #F5B041;
+}
+
+.agregartarea {
+	background: yellow;
+	color: red;
+}
