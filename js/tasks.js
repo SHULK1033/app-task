@@ -1,31 +1,33 @@
-let url = 'https://task-cms.herokuapp.com';
+let url = "https://task-cms.herokuapp.com";
 
-async function getstatus(){
+function getstatus() {
     let estados;
-    let route = '/estados';
-    let token = localStorage.getItem("key");
-    let options =[];
+    let route = "/estados";
+    let token = JSON.parse(localStorage.getItem("user"));
+    let options = [];
 
-    estados = document.getElementById('estado');
+    estados = document.getElementById("estado");
 
-    options = await fetch(url + route, {
-        method: 'GET',
-        headers:{
-            'Content-Type': 'application/json',
-            "Authorization" : "Bearer "+ token
-
-        }
+    fetch(url + route, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token.jwt,
+        },
     })
-    .then(res => res.json())
-    .then(data => {})
-    for(const index in options){
-        console.log(options[index]);
+        .then((res) => res.json())
+        .then((data) => {
+            localStorage.setItem("estados", JSON.stringify(data));
+        });
+
+    options = JSON.parse(localStorage.getItem("estados"));
+
+    for (const index in options) {
         let option = document.createElement("option");
-        option.text = options[index].tipoEstado
-        option.value = option[index]._id
-        estados.add(option)
-        console.log(option);
-        
+        option.text = options[index].tipoEstado;
+        option.value = options[index]._id;
+        estados.add(option);
     }
 }
+
 window.onload = this.getstatus();
