@@ -1,9 +1,19 @@
-let url = '127.0.0.1:1337'
+let url = 'http://127.0.0.1:1337';
 
-function login(){
-    fetch({
+function login() {
+  let router = '/auth/local';
+  let token = '';
 
-    })
+  fetch(url + router, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      identifier: 'luis@luis.com',
+      password: '1234567',
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => token = data);
 }
-
-var esta;
