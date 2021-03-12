@@ -1,4 +1,4 @@
-let url = 'http://127.0.0.1:1337';
+let url = 'https://task-cms.herokuapp.com/';
 
 async function login() {
   let router = '/auth/local';
@@ -26,7 +26,7 @@ async function login() {
 
     localStorage.setItem("key", token.jwt);
     localStorage.setItem("id", token.user.id);
-    
+
 }
 
 function boton(){

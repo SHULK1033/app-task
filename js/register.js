@@ -1,4 +1,4 @@
-let url = 'http://127.0.0.1:1337';
+let url = 'https://task-cms.herokuapp.com/';
 
 function register() {
   let route = '/users';
