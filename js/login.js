@@ -1,6 +1,6 @@
 let url = 'http://127.0.0.1:1337';
 
-function login() {
+async function login() {
   let router = '/auth/local';
   let token = '';
   let email =''; 
@@ -9,19 +9,31 @@ function login() {
   email= document.getElementById ('email').value
   password = document.getElementById('password').value
 
-  console.log(email)
-  console.log(password) 
-
-  fetch(url + router, {
+  token = await fetch(url + router, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      identifier: 'luis@luis.com',
-      password: '1234567',
+      "identifier": email,
+      "password": password,
     }),
   })
     .then((res) => res.json())
     .then((data) => token = data);
+
+    console.log(token);
+
+    localStorage.setItem("key", token.jwt);
+    localStorage.setItem("id", token.user.id);
+    
 }
+
+function boton(){
+  let form = document.getElementById ('form')
+  form.addEventListener("submit", (e)=>{
+    e.preventDefault();
+  })
+}
+
+window.onload = this.boton();
