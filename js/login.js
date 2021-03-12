@@ -1,4 +1,4 @@
-let url = 'https://task-cms.herokuapp.com/';
+let url = 'https://task-cms.herokuapp.com';
 
 async function login() {
   let router = '/auth/local';

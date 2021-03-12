@@ -1,4 +1,4 @@
-let url = 'https://task-cms.herokuapp.com/';
+let url = 'https://task-cms.herokuapp.com';
 
 function register() {
   let route = '/users';
