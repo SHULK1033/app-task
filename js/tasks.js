@@ -3,7 +3,7 @@ let url = 'https://task-cms.herokuapp.com';
 function getstatus() {
     let estados;
     let route = '/estados';
-    let token = JSON.parse(localStorage.getItem('user'));
+    let token = JSON.parse(localStorage.getItem('key'));
     let options = [];
 
     estados = document.getElementById('estado');
@@ -12,7 +12,7 @@ function getstatus() {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token.jwt,
+            'Authorization': 'Bearer ' + token,
         },
     })
         .then((res) => res.json())
