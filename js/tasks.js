@@ -94,4 +94,24 @@ function createTask() {
     console.log(estado,responsable)
 }
 
+function getTasks(){
+    let token = localStorage.getItem('key');
+    let route ='/tareas'
+    let table = document.getElementById('tablatareas')
+
+    fetch(url + route, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+
+        },
+  
+    }
+    ).then (rest=>rest.json()).then(data=> localStorage.setItem('historia',JSON.stringify(data)))
+
+    table.innertRow(-1).innerHTML=``
+}
+
 window.onload = this.getUsers();
+window.onload=this.getTasks();
