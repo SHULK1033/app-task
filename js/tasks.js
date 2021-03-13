@@ -38,20 +38,29 @@ function createTask() {
 
 function getUsers() {
     let users = [];
+    let usersSelected = document.getElementById('user')
     let route = '/users';
     let token = localStorage.getItem('key');
     fetch(url + route, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, }
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+        }
+    })
+        .then(res => res.json())
+        .then(data => {
+            localStorage.setItem('users', JSON.stringify(data));
+        })
+
+    users = JSON.parse(localStorage.getItem('users'));
+
+    for (const index in users) {
+        let option = document.createElement('option')
+        option.text = users[index].username
+        option.value = users[index].id
+        usersSelected.add(option)
     }
-    ).then (
-        res => {
-            res.json();
-        }
-    ).then(
-        data =>{
-            console.log(data);
-        }
-        )
 }
+
 window.onload = this.getUsers();
