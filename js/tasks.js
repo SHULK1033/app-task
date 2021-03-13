@@ -42,7 +42,7 @@ function getUsers() {
     let route = '/users';
     let token = localStorage.getItem('key');
     fetch(url + route, {
-        method: 'GET',
+        method:'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token,
@@ -61,6 +61,37 @@ function getUsers() {
         option.value = users[index].id
         usersSelected.add(option)
     }
+}
+
+function createTask() {
+    let route = '/tareas';
+    let description = '';
+    let responsable = '';
+    let estimado = '';
+    let estado = '';
+    let token = localStorage.getItem('key');
+
+    description = document.getElementById('hu').value
+    responsable = document.getElementById('user').value
+    estimado = document.getElementById('estimacion').value
+    estado = document.getElementById('estado').value
+
+    fetch(url + route, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+        },
+        body: JSON.stringify({
+            'description': description,
+            'responsable': responsable,
+            'estimado': estimado,
+            'estado': estado,
+        })
+    }
+    ).then (rest=>console.log(rest))
+
+    console.log(estado,responsable)
 }
 
 window.onload = this.getUsers();
