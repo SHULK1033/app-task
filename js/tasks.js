@@ -84,7 +84,7 @@ function createTask() {
             'estado': estado,
         })
     })
-        .then(rest => console.log(rest))
+        .then(res => console.log(res))
 }
 
 function getTasks() {
@@ -101,7 +101,7 @@ function getTasks() {
         },
 
     }
-    ).then(rest => rest.json()).then(data => localStorage.setItem('historia', JSON.stringify(data)))
+    ).then(res => res.json()).then(data => localStorage.setItem('historia', JSON.stringify(data)))
 
     row = JSON.parse(localStorage.getItem('historia'))
 
