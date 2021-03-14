@@ -89,11 +89,9 @@ function createTask() {
     })
         .then(res => {
             console.log(res)
-            if (res.ok) {
-                this.getTasks()
-            }
+            if (res.ok) { }
         })
-        form.reset()
+    form.reset()
 }
 
 function getTasks() {
@@ -107,7 +105,6 @@ function getTasks() {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token,
-
         },
 
     }
