@@ -21,6 +21,8 @@ function getstatus() {
         });
 
     options = JSON.parse(localStorage.getItem('estados'));
+    
+    console.log(options)
 
     for (const index in options) {
         let option = document.createElement('option');
@@ -70,6 +72,7 @@ function createTask() {
     responsable = document.getElementById('user').value
     estimado = document.getElementById('estimacion').value
     estado = document.getElementById('estado').value
+    prioridad=document.getElementById('priority').value
 
     fetch(url + route, {
         method: 'POST',
@@ -85,6 +88,28 @@ function createTask() {
         })
     })
         .then(rest => console.log(rest))
+}
+
+function getPrioriy(){
+let prioridad;
+let route = '/prioridad';
+prioridad = document.getElementById('priority');
+
+fetch(url + route, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+    },
+})
+    .then((res) => res.json())
+    .then((data) => {
+        localStorage.setItem('priority', JSON.stringify(data));
+    });
+
+options = JSON.parse(localStorage.getItem('priority'));
+
+console.log(options)
 }
 
 function getTasks() {
@@ -104,6 +129,8 @@ function getTasks() {
     ).then(rest => rest.json()).then(data => localStorage.setItem('historia', JSON.stringify(data)))
 
     row = JSON.parse(localStorage.getItem('historia'))
+    
+    
 
     for (const index in row) {
         table.insertRow(-1).innerHTML = `
@@ -112,6 +139,7 @@ function getTasks() {
         <td>${row[index].responsable.username}</td>
         <td>${row[index].estado.tipoEstado}</td>
         <td>${row[index].estimado}</td>
+        <td>${row[index].prioridad}</td>
         <td>
             <div class="text-center">
                 <div class="btn-group">
@@ -140,6 +168,6 @@ function getTasks() {
     }
 }
 
+window.onload = this.getstatus();
 window.onload = this.getUsers();
 window.onload = this.getTasks();
-window.onload = this.getstatus();
