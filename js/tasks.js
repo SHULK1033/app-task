@@ -106,10 +106,8 @@ function getTasks() {
     row = JSON.parse(localStorage.getItem('historia'))
 
     for (const index in row) {
-        console.log(row)
-        let id = row[index].id || ''
         table.insertRow(-1).innerHTML = `
-        <td>${id.slice(id.length - 4).toUpperCase()}</td>
+        <td>${row[index].id.slice(id.length - 4).toUpperCase()}</td>
         <td>${row[index].description}</td>
         <td>${row[index].responsable.username}</td>
         <td>${row[index].estado?.tipoEstado || ''}</td>
