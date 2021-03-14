@@ -107,7 +107,7 @@ function getTasks() {
 
     for (const index in row) {
         table.insertRow(-1).innerHTML = `
-        <td>${row[index].id.slice(id.length - 4).toUpperCase()}</td>
+        <td>${row[index].id.slice(row[index].id.length - 4).toUpperCase()}</td>
         <td>${row[index].description}</td>
         <td>${row[index].responsable.username}</td>
         <td>${row[index].estado?.tipoEstado || ''}</td>
