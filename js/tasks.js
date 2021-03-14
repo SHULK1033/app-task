@@ -64,6 +64,7 @@ function createTask() {
     let estimado = '';
     let estado = '';
     let prioridad = '';
+    let form = document.getElementById('form')
     let token = localStorage.getItem('key');
 
     description = document.getElementById('hu').value
@@ -92,6 +93,7 @@ function createTask() {
                 this.getTasks()
             }
         })
+        form.reset()
 }
 
 function getTasks() {
