@@ -64,7 +64,6 @@ function createTask() {
     let estimado = '';
     let estado = '';
     let token = localStorage.getItem('key');
-    let row = [];
 
     description = document.getElementById('hu').value
     responsable = document.getElementById('user').value
@@ -84,13 +83,19 @@ function createTask() {
             'estado': estado,
         })
     })
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res)
+            if (res.ok) {
+                this.getTasks()
+            }
+        })
 }
 
 function getTasks() {
     let token = localStorage.getItem('key');
     let route = '/tareas'
     let table = document.getElementById('tablatareas')
+    console.log(table.rows.length)
 
     fetch(url + route, {
         method: 'GET',
@@ -116,7 +121,7 @@ function getTasks() {
         <td>
             <div class="text-center">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-info">Modificar
+                    <button data-bs-target="#exampleModal" data-bs-toggle="modal" onclick="updateTask('${row[index].id}')" type="button" class="btn btn-info">Modificar
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path
@@ -141,6 +146,44 @@ function getTasks() {
     }
 }
 
+function getPrioridades() {
+    let route = '/prioridads';
+    let token = localStorage.getItem('key');
+    let options = []
+    let prioridad = document.getElementById('priority')
+
+    fetch(url + route, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+
+        },
+    })
+        .then(res => res.json())
+        .then(data => {
+            localStorage.setItem('prioridad', JSON.stringify(data))
+        })
+
+    options = JSON.parse(localStorage.getItem('prioridad'))
+
+    for (const index in options) {
+        let option = document.createElement('option')
+        option.text = options[index].Prioridad
+        option.value = options[index].id
+        prioridad.add(option)
+    }
+}
+
+function updateTask(rowId) {
+    let data = JSON.parse(localStorage.getItem('historia'))
+    let tarea = data.find(tarea => {
+        return tarea._id === rowId
+    })
+    console.log(tarea)
+}
+
+window.onload = this.getPrioridades();
 window.onload = this.getUsers();
 window.onload = this.getstatus();
 window.onload = this.getTasks();
