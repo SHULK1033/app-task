@@ -27,3 +27,7 @@
 	background: yellow;
 	color: red;
 }
+
+.ocultar {
+	display: none;
+ }

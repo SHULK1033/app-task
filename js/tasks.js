@@ -123,7 +123,7 @@ function getTasks() {
         <td>
             <div class="text-center">
                 <div class="btn-group">
-                    <button data-bs-target="#exampleModal" data-bs-toggle="modal" onclick="selectRow('${row[index].id}, true')" type="button" class="btn btn-info">Modificar
+                    <button id="modificar" data-bs-target="#exampleModal" data-bs-toggle="modal" onclick="selectRow('${row[index].id}', true)" type="button" class="btn btn-info">Modificar
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path
@@ -132,7 +132,7 @@ function getTasks() {
                                 d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                         </svg>
                     </button>
-                    <button  data-bs-toggle="modal" data-bs-target="#deleteModal" type="button" class="btn btn-danger" onclick="selectRow('${row[index].id}, true')">Eliminar
+                    <button  data-bs-toggle="modal" data-bs-target="#deleteModal" type="button" class="btn btn-danger" onclick="selectRow('${row[index].id}', false)">Eliminar
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path
@@ -178,16 +178,80 @@ function getPrioridades() {
 }
 
 function selectRow(rowId, edit) {
+
     let data = JSON.parse(localStorage.getItem('historia'))
     let tarea = data.find(tarea => {
         return tarea._id === rowId
     })
     console.log(tarea, edit)
+    if (edit){
+        //editTask(tarea)
+    }else{
+        //deleteTask(tarea)
+    }
 }
 
-function deleteTask(rowId) {
+function deleteTask(data) {
+    let route = "/tareas/"
+    let token = localStorage.getItem('key');
     
+    fetch(url + route + data.id,{
+        method:'DELETE',
+        headers:{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+        }
+    })
+    .then(res => console.log(res))
 }
+
+function editTask(data){
+    let route = '/tareas/';
+    let description = '';
+    let responsable = '';
+    let estimado = '';
+    let estado = '';
+    let prioridad = '';
+    let form = document.getElementById('form')
+    let token = localStorage.getItem('key');
+
+    description = document.getElementById('hu')
+    responsable = document.getElementById('user')
+    estimado = document.getElementById('estimacion')
+    estado = document.getElementById('estado')
+    prioridad = document.getElementById('priority')
+
+    description.value = data.description
+    responsable.value = data.responsable.id
+    estimado.value = data.estimado
+    estado.value = data.estado.id
+    prioridad.value = data.prioridad.id
+    // fetch(url + route + data.id, {
+    //     method: 'PUT',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer ' + token,
+    //     },
+    //     body: JSON.stringify({
+    //         'description': description,
+    //         'responsable': responsable,
+    //         'estimado': estimado,
+    //         'prioridad': prioridad,
+    //         'estado': estado,
+    //     })
+    // })
+        // .then(res => {
+        //     console.log(res)
+        //     if (res.ok) { }
+        // })
+    //form.reset()
+}
+
+// function ocultar(){
+//     var element = document.getElementById("editar");
+//     element.classList.add("ocultar");
+//     return true;
+// }
 
 window.onload = this.getPrioridades();
 window.onload = this.getUsers();
