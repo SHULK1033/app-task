@@ -63,12 +63,14 @@ function createTask() {
     let responsable = '';
     let estimado = '';
     let estado = '';
+    let prioridad = '';
     let token = localStorage.getItem('key');
 
     description = document.getElementById('hu').value
     responsable = document.getElementById('user').value
     estimado = document.getElementById('estimacion').value
     estado = document.getElementById('estado').value
+    prioridad = document.getElementById('priority').value
 
     fetch(url + route, {
         method: 'POST',
@@ -80,6 +82,7 @@ function createTask() {
             'description': description,
             'responsable': responsable,
             'estimado': estimado,
+            'prioridad': prioridad,
             'estado': estado,
         })
     })
@@ -95,7 +98,7 @@ function getTasks() {
     let token = localStorage.getItem('key');
     let route = '/tareas'
     let table = document.getElementById('tablatareas')
-    console.log(table.rows.length)
+    console.log(table)
 
     fetch(url + route, {
         method: 'GET',
