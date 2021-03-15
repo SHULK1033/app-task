@@ -185,9 +185,8 @@ function selectRow(rowId, edit) {
     })
     console.log(tarea, edit)
     if (edit){
-        //editTask(tarea)
-    }else{
-        //deleteTask(tarea)
+        localStorage.setItem("editar", JSON.stringify(tarea));
+        ocultar(true);
     }
 }
 
@@ -205,7 +204,8 @@ function deleteTask(data) {
     .then(res => console.log(res))
 }
 
-function editTask(data){
+function editTask(){
+    let data = JSON.parse(localStorage.getItem("editar"));
     let route = '/tareas/';
     let description = '';
     let responsable = '';
@@ -215,43 +215,63 @@ function editTask(data){
     let form = document.getElementById('form')
     let token = localStorage.getItem('key');
 
-    description = document.getElementById('hu')
-    responsable = document.getElementById('user')
-    estimado = document.getElementById('estimacion')
-    estado = document.getElementById('estado')
-    prioridad = document.getElementById('priority')
+    description = document.getElementById('hu').value
+    responsable = document.getElementById('user').value
+    estimado = document.getElementById('estimacion').value
+    estado = document.getElementById('estado').value
+    prioridad = document.getElementById('priority').value
 
-    description.value = data.description
-    responsable.value = data.responsable.id
-    estimado.value = data.estimado
-    estado.value = data.estado.id
-    prioridad.value = data.prioridad.id
-    // fetch(url + route + data.id, {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': 'Bearer ' + token,
-    //     },
-    //     body: JSON.stringify({
-    //         'description': description,
-    //         'responsable': responsable,
-    //         'estimado': estimado,
-    //         'prioridad': prioridad,
-    //         'estado': estado,
-    //     })
-    // })
-        // .then(res => {
-        //     console.log(res)
-        //     if (res.ok) { }
-        // })
-    //form.reset()
+
+    description = data?.description
+    responsable = data?.responsable.id
+    estimado = data?.estimado
+    estado = data?.estado.id
+    prioridad = data?.prioridad.id
+
+    description = document.getElementById('hu').value
+    responsable = document.getElementById('user').value
+    estimado = document.getElementById('estimacion').value
+    estado = document.getElementById('estado').value
+    prioridad = document.getElementById('priority').value
+
+     fetch(url + route + data.id, {
+         method: 'PUT',
+         headers: {
+             'Content-Type': 'application/json',
+             'Authorization': 'Bearer ' + token,
+         },
+         body: JSON.stringify({
+             'description': description,
+             'responsable': responsable,
+             'estimado': estimado,
+             'prioridad': prioridad,
+             'estado': estado,
+
+         })
+     })
+         .then(res => {
+             console.log(res)
+             if (res.ok) { }
+         })
+    form.reset()
+    console.log(data)
+    localStorage.removeItem("editar")
 }
 
-// function ocultar(){
-//     var element = document.getElementById("editar");
-//     element.classList.add("ocultar");
-//     return true;
-// }
+function ocultar(edit){
+    let boton1;
+    let boton2;
+    boton1 = document.getElementById("guardar");
+    boton2 = document.getElementById("editar");
+    if(edit){
+        //boton1 = document.getElementById();
+        boton1.classList.add("ocultar");
+        boton2.classList.remove("ocultar");
+    }else{
+        boton2.classList.add("ocultar");
+        boton1.classList.remove("ocultar");
+    }
+}
 
 window.onload = this.getPrioridades();
 window.onload = this.getUsers();

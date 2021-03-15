@@ -28,6 +28,6 @@
 	color: red;
 }
 
-.ocultar {
+.btn.btn-success.ocultar {
 	display: none;
  }
