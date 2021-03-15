@@ -199,6 +199,8 @@ function selectRow(rowId, edit) {
     if (edit) {
         localStorage.setItem("editar", JSON.stringify(tarea));
         ocultar(true);
+    } else {
+        deleteTask(tarea)
     }
 }
 
