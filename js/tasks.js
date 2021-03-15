@@ -178,12 +178,17 @@ function getPrioridades() {
 }
 
 function selectRow(rowId, edit) {
-
     let data = JSON.parse(localStorage.getItem('historia'))
     let tarea = data.find(tarea => {
         return tarea._id === rowId
     })
-    console.log(tarea, edit)
+
+    document.getElementById('hu').value = tarea.description
+    document.getElementById('user').value = tarea.responsable.id
+    document.getElementById('estimacion').value = tarea.estimado
+    document.getElementById('estado').value = tarea?.estado?.id
+    document.getElementById('priority').value = tarea?.prioridad?.id
+
     if (edit){
         localStorage.setItem("editar", JSON.stringify(tarea));
         ocultar(true);
@@ -221,19 +226,6 @@ function editTask(){
     estado = document.getElementById('estado').value
     prioridad = document.getElementById('priority').value
 
-
-    description = data?.description
-    responsable = data?.responsable.id
-    estimado = data?.estimado
-    estado = data?.estado.id
-    prioridad = data?.prioridad.id
-
-    description = document.getElementById('hu').value
-    responsable = document.getElementById('user').value
-    estimado = document.getElementById('estimacion').value
-    estado = document.getElementById('estado').value
-    prioridad = document.getElementById('priority').value
-
      fetch(url + route + data.id, {
          method: 'PUT',
          headers: {
@@ -246,7 +238,6 @@ function editTask(){
              'estimado': estimado,
              'prioridad': prioridad,
              'estado': estado,
-
          })
      })
          .then(res => {
