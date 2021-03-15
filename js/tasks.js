@@ -147,11 +147,11 @@ function getTasks() {
         </td>
         `
     }
-    setTimeout(() => {
+    setInterval(() => {
         if (table.rows.length === 1) {
             window.location.reload()
         }
-    }, 1200)
+    }, 10000)
 
 }
 
