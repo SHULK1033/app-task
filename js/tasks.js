@@ -88,8 +88,9 @@ function createTask() {
         })
     })
         .then(res => {
-            console.log(res)
-            if (res.ok) { }
+            if (res.ok) {
+                alert('Tarea Creada')
+            }
         })
     form.reset()
 }
@@ -98,7 +99,6 @@ function getTasks() {
     let token = localStorage.getItem('key');
     let route = '/tareas'
     let table = document.getElementById('tablatareas')
-    console.log(table)
 
     fetch(url + route, {
         method: 'GET',
@@ -107,8 +107,9 @@ function getTasks() {
             'Authorization': 'Bearer ' + token,
         },
 
-    }
-    ).then(res => res.json()).then(data => localStorage.setItem('historia', JSON.stringify(data)))
+    })
+        .then(res => res.json())
+        .then(data => localStorage.setItem('historia', JSON.stringify(data)))
 
     row = JSON.parse(localStorage.getItem('historia'))
 
@@ -116,10 +117,10 @@ function getTasks() {
         table.insertRow(-1).innerHTML = `
         <td>${row[index].id.slice(row[index].id.length - 4).toUpperCase()}</td>
         <td>${row[index].description}</td>
-        <td>${row[index].responsable.username}</td>
-        <td>${row[index].estado?.tipoEstado || ''}</td>
+        <td>${row[index].responsable?.username}</td>
+        <td>${row[index].estado?.tipoEstado}</td>
         <td>${row[index].estimado}</td>
-        <td>${row[index].prioridad?.Prioridad || ''}</td>
+        <td>${row[index].prioridad?.Prioridad}</td>
         <td>
             <div class="text-center">
                 <div class="btn-group">
@@ -189,7 +190,7 @@ function selectRow(rowId, edit) {
     document.getElementById('estado').value = tarea?.estado?.id
     document.getElementById('priority').value = tarea?.prioridad?.id
 
-    if (edit){
+    if (edit) {
         localStorage.setItem("editar", JSON.stringify(tarea));
         ocultar(true);
     }
@@ -198,18 +199,18 @@ function selectRow(rowId, edit) {
 function deleteTask(data) {
     let route = "/tareas/"
     let token = localStorage.getItem('key');
-    
-    fetch(url + route + data.id,{
-        method:'DELETE',
-        headers:{
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token,
+
+    fetch(url + route + data.id, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
         }
     })
-    .then(res => console.log(res))
+        .then(res => res)
 }
 
-function editTask(){
+function editTask() {
     let data = JSON.parse(localStorage.getItem("editar"));
     let route = '/tareas/';
     let description = '';
@@ -226,39 +227,36 @@ function editTask(){
     estado = document.getElementById('estado').value
     prioridad = document.getElementById('priority').value
 
-     fetch(url + route + data.id, {
-         method: 'PUT',
-         headers: {
-             'Content-Type': 'application/json',
-             'Authorization': 'Bearer ' + token,
-         },
-         body: JSON.stringify({
-             'description': description,
-             'responsable': responsable,
-             'estimado': estimado,
-             'prioridad': prioridad,
-             'estado': estado,
-         })
-     })
-         .then(res => {
-             console.log(res)
-             if (res.ok) { }
-         })
+    fetch(url + route + data.id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+        },
+        body: JSON.stringify({
+            'description': description,
+            'responsable': responsable,
+            'estimado': estimado,
+            'prioridad': prioridad,
+            'estado': estado,
+        })
+    })
+        .then(res => {
+            if (res.ok) { }
+        })
     form.reset()
-    console.log(data)
     localStorage.removeItem("editar")
 }
 
-function ocultar(edit){
+function ocultar(edit) {
     let boton1;
     let boton2;
     boton1 = document.getElementById("guardar");
     boton2 = document.getElementById("editar");
-    if(edit){
-        //boton1 = document.getElementById();
+    if (edit) {
         boton1.classList.add("ocultar");
         boton2.classList.remove("ocultar");
-    }else{
+    } else {
         boton2.classList.add("ocultar");
         boton1.classList.remove("ocultar");
     }
