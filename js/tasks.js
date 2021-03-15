@@ -133,7 +133,7 @@ function getTasks() {
                                 d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                         </svg>
                     </button>
-                    <button  data-bs-toggle="modal" data-bs-target="#deleteModal" type="button" class="btn btn-danger" onclick="selectRow('${row[index].id}', false)">Eliminar
+                    <button  data-bs-toggle="modal" data-bs-target="#deleteModal" type="button" class="btn btn-danger" onclick="deleteTask('${row[index].id}', false)">Eliminar
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path
@@ -199,8 +199,6 @@ function selectRow(rowId, edit) {
     if (edit) {
         localStorage.setItem("editar", JSON.stringify(tarea));
         ocultar(true);
-    } else {
-        deleteTask(tarea)
     }
 }
 
