@@ -19,13 +19,19 @@ async function login() {
       'password': password,
     }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        alert('Login exitoso')
+        return res.json()
+      } else {
+        alert('Login Fallido')
+      }
+    })
     .then((data) => token = data);
-
-  console.log(token);
 
   localStorage.setItem('key', token.jwt);
   localStorage.setItem('id', token.user.id);
+  window.location.href='/principal.html'
 
 }
 

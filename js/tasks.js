@@ -147,6 +147,12 @@ function getTasks() {
         </td>
         `
     }
+    setTimeout(() => {
+        if (table.rows.length === 1) {
+            window.location.reload()
+        }
+    }, 1200)
+
 }
 
 function getPrioridades() {

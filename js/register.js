@@ -21,7 +21,15 @@ function register() {
       "password": password,
       "confirmed": 'true'
     }),
+  }).then (res => {
+    if (res.ok){
+      alert('Registro exitoso')
+      window.location.href= '/'
+    } else{
+      alert('Registro Fallido')
+    }
   })
+
 
     .catch(err => {
       console.log(err)
