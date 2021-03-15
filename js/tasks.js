@@ -123,7 +123,7 @@ function getTasks() {
         <td>
             <div class="text-center">
                 <div class="btn-group">
-                    <button data-bs-target="#exampleModal" data-bs-toggle="modal" onclick="updateTask('${row[index].id}')" type="button" class="btn btn-info">Modificar
+                    <button data-bs-target="#exampleModal" data-bs-toggle="modal" onclick="selectRow('${row[index].id}, true')" type="button" class="btn btn-info">Modificar
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path
@@ -132,7 +132,7 @@ function getTasks() {
                                 d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                         </svg>
                     </button>
-                    <button data-bs-toggle="modal" data-bs-target="#deleteModal" type="button" class="btn btn-danger">Eliminar
+                    <button  data-bs-toggle="modal" data-bs-target="#deleteModal" type="button" class="btn btn-danger" onclick="selectRow('${row[index].id}, true')">Eliminar
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                             <path
@@ -177,12 +177,12 @@ function getPrioridades() {
     }
 }
 
-function updateTask(rowId) {
+function selectRow(rowId, edit) {
     let data = JSON.parse(localStorage.getItem('historia'))
     let tarea = data.find(tarea => {
         return tarea._id === rowId
     })
-    console.log(tarea)
+    console.log(tarea, edit)
 }
 
 function deleteTask(rowId) {
